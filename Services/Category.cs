@@ -24,7 +24,22 @@ namespace TemporalBoxApi.Services
 
         public bool DeleteCategory(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var data = _context.Categories.FirstOrDefault(x => x.CategoryId == id);
+               if(data==null)
+                {
+                    throw new Exception("data not found");
+                }
+                _context.Categories.Remove(data);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
         }
 
         public List<Categories> GetCategorieDetails()
